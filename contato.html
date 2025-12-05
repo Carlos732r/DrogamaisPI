@@ -36,13 +36,43 @@
         textarea.form-control {
             border: 1px solid #6d6d6d !important;
             box-shadow: none !important;
+            font-size: 13px;
         }
         .form-label {
             color: #000;
             font-weight: 500;
+                font-size: 18px;
+                display: block;
+                margin-bottom: 6px;
+            background-color: transparent; 
+        }
+        
+        .form-outline {
+            position: relative;
+            margin-bottom: 1.8rem;
         }
 
-        /* CSS required for the new menu's search bar */
+        .phone-error-message {
+            color: #b21f2d;
+                font-size: 16px;
+            position: absolute;
+            bottom: -18px;
+            left: 0;
+            width: 100%;
+            text-align: left;
+            font-weight: 500;
+            display: none;
+        }
+
+        .input-error {
+            border-color: #b21f2d !important;
+            border-width: 1px !important;
+        }
+        .input-error:focus {
+            border-color: #b21f2d !important;
+            box-shadow: 0 0 0 0.25rem rgba(178, 31, 45, 0.25) !important;
+        }
+
         .search-form {
             flex-grow: 1;
             max-width: 500px;
@@ -77,29 +107,34 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container px-4 px-lg-5">
-        <img src="assets/logo.png" alt="Company Logo" height="50">
-        <a class="navbar-brand" href="index.html">Droga +</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
-                <li class="nav-item"><a class="nav-link" href="login.html">Entrar/Cadastrar</a></li>
-                <li class="nav-item"><a class="nav-link" href="contato.html">Contate-nos</a></li>
-            </ul>
-            <form class="d-flex search-form" role="search">
-                <input class="form-control search-input" type="search" placeholder="O que deseja procurar?" aria-label="Search">
-            </form>
-            <form class="d-flex">
-                <a href="carrinho.html" class="btn btn-outline-dark">
-                    <i class="bi bi-cart-fill me-1"></i> Carrinho
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                </a>
-            </form>
-        </div>
-    </div>
-</nav>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container px-4 px-lg-5">
+          <img src="assets/logo.png" alt="Company Logo" height="50">
+          <a class="navbar-brand" href="index.html">Droga +</a>
+          
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+          
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                  <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+                  <li class="nav-item"><a class="nav-link" href="login.html">Entrar/Cadastrar</a></li>
+                  <li class="nav-item"><a class="nav-link" href="cadastrofornecedor.html">Cadastrar Fornecedor</a></li>
+                  <li class="nav-item"><a class="nav-link" href="contato.html">Contate-nos</a></li>
+              </ul>
+
+              <form class="d-flex search-form" role="search">
+                  <input class="form-control search-input" type="search" placeholder="O que deseja procurar?" aria-label="Search">
+              </form>
+              
+              <form class="d-flex">
+                  <a href="carrinho.html" class="btn btn-outline-dark">
+                      <i class="bi bi-cart-fill me-1"></i> Carrinho
+                      <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                  </a>
+              </form>
+          </div>
+      </div>
+  </nav>
 
 <section class="d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 82px);">
     <div class="container py-5">
@@ -110,28 +145,30 @@
                         <h2 class="fw-bold mb-4 text-center text-danger">
                             <i class="fas fa-envelope me-2"></i>Fale Conosco
                         </h2>
-                        <form>
-                            <div class="form-outline mb-4">
-                                <input type="text" id="formName" class="form-control form-control-lg" placeholder="Seu nome completo" required />
-                                <label class="form-label" for="formName">Nome</label>
+                        <form id="contactForm" novalidate>
+
+                            <div class="form-outline">
+                                <label class="form-label" for="formName">Nome completo</label>
+                                <input type="text" id="formName" class="form-control form-control-lg" required />
                             </div>
 
-                            <div class="form-outline mb-4">
-                                <input type="email" id="formEmail" class="form-control form-control-lg" placeholder="seuemail@exemplo.com" required />
+                            <div class="form-outline">
                                 <label class="form-label" for="formEmail">Email</label>
+                                <input type="email" id="formEmail" class="form-control form-control-lg" required />
                             </div>
 
-                            <div class="form-outline mb-4">
-                                <input type="tel" id="formPhone" class="form-control form-control-lg" placeholder="(00) 00000-0000" />
+                            <div class="form-outline" id="phoneContainer">
                                 <label class="form-label" for="formPhone">Telefone</label>
+                                <input type="tel" id="formPhone" class="form-control form-control-lg" maxlength="15" required />
+                                <div id="phoneError" class="phone-error-message">Telefone incorreto</div>
                             </div>
 
-                            <div class="form-outline mb-4">
-                                <textarea id="formMessage" class="form-control form-control-lg" rows="4" placeholder="Digite sua mensagem" required></textarea>
+                            <div class="form-outline">
                                 <label class="form-label" for="formMessage">Mensagem</label>
+                                <textarea id="formMessage" class="form-control form-control-lg" rows="4" required></textarea>
                             </div>
 
-                            <button type="submit" class="btn btn-danger btn-lg w-100 btn-danger-custom">Enviar Mensagem</button>
+                            <button type="submit" class="btn btn-danger btn-lg w-100 btn-danger-custom mt-2">Enviar Mensagem</button>
                         </form>
                         
                         <div class="text-center mt-4">
@@ -148,7 +185,97 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/script.js"></script>
+
+<script>
+    const phoneInput = document.getElementById('formPhone');
+    const phoneError = document.getElementById('phoneError');
+    const contactForm = document.getElementById('contactForm');
+    const inputs = document.querySelectorAll('.form-outline .form-control');
+    const emailInput = document.getElementById('formEmail');
+
+    // Cria elemento de erro para email
+    let emailError = document.createElement('div');
+    emailError.id = 'emailError';
+    emailError.style.color = '#b21f2d';
+    emailError.style.fontSize = '16px';
+    emailError.style.fontWeight = '500';
+    emailError.style.marginTop = '4px';
+    emailError.style.display = 'none';
+    emailInput.parentNode.appendChild(emailError);
+
+    phoneInput.addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 11) value = value.slice(0, 11);
+
+        if (value.length > 2) {
+            value = `(${value.substring(0, 2)}) ${value.substring(2)}`;
+        }
+        if (value.length > 10) {
+            value = `${value.substring(0, 10)}-${value.substring(10)}`;
+        } else if (value.length > 9) {
+            value = `${value.substring(0, 9)}-${value.substring(9)}`;
+        }
+        
+        e.target.value = value;
+        
+        if(phoneInput.classList.contains('input-error')) {
+            phoneInput.classList.remove('input-error');
+            phoneError.style.display = 'none';
+        }
+    });
+
+    contactForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const rawPhone = phoneInput.value.replace(/\D/g, '');
+        let hasError = false;
+
+        // Validação do telefone
+        if (rawPhone.length < 10 || rawPhone.length > 11) {
+            phoneInput.classList.add('input-error');
+            phoneError.style.display = 'block';
+            hasError = true;
+        } else {
+            phoneInput.classList.remove('input-error');
+            phoneError.style.display = 'none';
+        }
+
+        // Validação do email
+        const emailValue = emailInput.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailValue)) {
+            emailInput.classList.add('input-error');
+            emailError.textContent = 'Email inválido';
+            emailError.style.display = 'block';
+            hasError = true;
+        } else {
+            emailInput.classList.remove('input-error');
+            emailError.style.display = 'none';
+        }
+
+        if (hasError) return;
+
+        alert("Sua mensagem foi enviada com sucesso!");
+        contactForm.reset();
+
+        inputs.forEach(input => {
+            input.classList.remove('active');
+            input.blur();
+            const label = input.nextElementSibling;
+            if(label && label.classList.contains('form-label')) {
+                input.value = '';
+            }
+        });
+
+        document.querySelectorAll('.form-outline').forEach(outline => {
+            const input = outline.querySelector('input, textarea');
+            if(input) {
+                const event = new Event('blur');
+                input.dispatchEvent(event);
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
